@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Resource Network Engine</title>
+  <style>
+    body, table, td, input, select, label {
+      background-color: #f4f6f9;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+    }
+
+    .table-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      gap: 15px;
+    }
+
+    .table-container table {
+      background-color: #ffffff;
+      border: 1px solid #dcdfe6;
+      border-radius: 8px;
+      flex: 1;
+      width: 100%;
+    }
+
+    select, input[type="number"] {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Toggle switch */
+    .switch { position: relative; display: inline-block; width: 44px; height: 22px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; inset: 0; background-color: #ccc; border-radius: 22px; transition: 0.3s; }
+    .slider::before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: 0.3s; }
+    .switch input:checked + .slider { background-color: #4CAF50; }
+    .switch input:checked + .slider::before { transform: translateX(22px); }
+
+    /* Analyze button */
+    #analyzeBtn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 40px;
+      font-size: 15px;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #analyzeBtn:hover { background-color: #1b5e20; }
+
+    /* Result cards */
+    .card {
+      background-color: #ffffff;
+      border: 1px solid #dcdfe6;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 12px 0;
+    }
+    .card h3 { margin: 0 0 6px 0; font-size: 16px; background-color: #ffffff; }
+    .card p, .card li, .card div { background-color: #ffffff; }
+    .bar-outer { background-color: #e0e0e0; border-radius: 6px; height: 14px; width: 100%; }
+    .bar-inner { height: 14px; border-radius: 6px; }
+    .good { background-color: #4CAF50; }
+    .ok { background-color: #ff9800; }
+    .weak { background-color: #e53935; }
+    #results { max-width: 900px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+<h1 align="center">Resource Network Engine</h1>
+
+<div class="table-container">
+
+  <!-- PILLAR 1: LAND AND PROPERTY -->
+  <table border="2" cellpadding="2" cellspacing="3">
+    <tr><td colspan="2"><b>LAND AND PROPERTY</b></td></tr>
+    <tr>
+      <td>Area in acres:</td>
+      <td><input type="number" id="acres" min="0" step="0.1" value="0"></td>
+    </tr>
+    <tr>
+      <td>Geographical zone / Area type:</td>
+      <td>
+        <select id="zone">
+          <option value="">select</option>
+          <option value="highway">Highway/Industrial Corridor</option>
+          <option value="city">City/Prime Urban Area</option>
+          <option value="suburban">Sub Urban/Outer Ring Road</option>
+          <option value="village">Village/Rural Zone</option>
+          <option value="coastal">Coastal/Port Access Area</option>
+          <option value="vacant">Open Vacant Plot/Land</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Utilities and Site Features</td>
+      <td>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <label><input type="checkbox" id="power"> 3-Phase Power</label>
+          <label><input type="checkbox" id="water"> Water Source</label>
+          <label><input type="checkbox" id="road"> Wide Road</label>
+          <label><input type="checkbox" id="fiber"> Fiber Internet</label>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- PILLAR 2: NETWORK AND INFLUENCE -->
+  <table border="2" cellpadding="2" cellspacing="3">
+    <tr><td colspan="2"><b>NETWORK AND INFLUENCE</b></td></tr>
+    <tr>
+      <td>Political &amp; Administrative Access:</td>
+      <td>
+        <select id="political">
+          <option value="0">select</option>
+          <option value="0">Low/None (Standard Legal Clearances)</option>
+          <option value="1">Moderate (Local Municipal/Panchayat Access)</option>
+          <option value="2">High (State Level/Regulatory Access)</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Business &amp; Supply Chain Network:</td>
+      <td>
+        <select id="business">
+          <option value="0">select</option>
+          <option value="0">Low (No Prior Supply Chain)</option>
+          <option value="1">Moderate (Local Retail Suppliers &amp; Traders)</option>
+          <option value="2">High (Direct Access to Wholesalers &amp; Distributors)</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Professional Contacts</td>
+      <td>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <label><input type="checkbox" id="legal"> Legal / Regulatory Advisors</label>
+          <label><input type="checkbox" id="finance"> Financial Contacts</label>
+          <label><input type="checkbox" id="mentors"> Mentors &amp; Tech Executives</label>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- PILLAR 3: CAPITAL AND LABOUR -->
+  <table border="2" cellpadding="2" cellspacing="3">
+    <tr><td colspan="2"><b>CAPITAL &amp; LABOUR</b></td></tr>
+    <tr>
+      <td>Available Liquid Budget (&#8377; in Lakhs):</td>
+      <td><input type="number" id="budget" min="0" step="1" value="0"></td>
+    </tr>
+    <tr>
+      <td>Human Resource Access</td>
+      <td>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <label><input type="checkbox" id="unskilled"> Unskilled Labour</label>
+          <label><input type="checkbox" id="skilled"> Skilled Labour (Technicians, Logistics, Sales)</label>
+          <label><input type="checkbox" id="agri"> Agri-Specialists &amp; Local Skilled Labour</label>
+          <label><input type="checkbox" id="tech"> Technical &amp; Executive Talent (Engineers)</label>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Govt. Subsidy Applicable</td>
+      <td>
+        <label class="switch">
+          <input type="checkbox" id="subsidy">
+          <span class="slider"></span>
+        </label>
+      </td>
+    </tr>
+  </table>
+
+</div>
+
+<button id="analyzeBtn">Analyze</button>
+
+<div id="results"></div>
+
+<script>
+// This page sends your answers to the C++ server and shows what comes back.
+var textIds = ["acres", "zone", "budget", "political", "business"];
+var checkIds = ["power", "water", "road", "fiber", "legal", "finance", "mentors",
+                "unskilled", "skilled", "agri", "tech", "subsidy"];
+
+document.getElementById("analyzeBtn").onclick = function () {
+  var parts = [];
+
+  for (var i = 0; i < textIds.length; i++) {
+    var value = document.getElementById(textIds[i]).value;
+    parts.push(textIds[i] + "=" + encodeURIComponent(value));
+  }
+  for (var j = 0; j < checkIds.length; j++) {
+    var ticked = document.getElementById(checkIds[j]).checked;
+    parts.push(checkIds[j] + "=" + (ticked ? 1 : 0));
+  }
+
+  if (document.getElementById("zone").value === "") {
+    alert("Please select a Geographical zone / Area type first.");
+    return;
+  }
+
+  var box = document.getElementById("results");
+  box.innerHTML = "Asking the C++ engine...";
+
+  fetch("/analyze?" + parts.join("&"))
+    .then(function (response) { return response.text(); })
+    .then(function (text) { box.innerHTML = text; })
+    .catch(function () {
+      box.innerHTML = "Could not reach the C++ server. Is it still running?";
+    });
+};
+</script>
+</body>
+</html>
