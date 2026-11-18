@@ -11,7 +11,7 @@
 #include <cstdlib>
 using namespace std;
 
-// ---------- Networking headers (different on Windows and Mac/Linux) ----------
+
 #ifdef _WIN32
   #include <winsock2.h>
   #include <ws2tcpip.h>
@@ -25,10 +25,6 @@ using namespace std;
   #define CLOSE_SOCKET close
 #endif
 
-
-// =====================================================
-// PART A: THE ENGINE (same logic as the JavaScript and console versions)
-// =====================================================
 
 struct Venture {
     string name;
@@ -289,9 +285,6 @@ bool higherScoreFirst(const Result& a, const Result& b) {
 }
 
 
-// =====================================================
-// PART B: TURNING RESULTS INTO HTML (what the browser shows)
-// =====================================================
 
 // Make text safe for HTML (for example & becomes &amp;)
 string htmlSafe(const string& text) {
@@ -357,9 +350,6 @@ string makeResultsHtml(const vector<Result>& results) {
 }
 
 
-// =====================================================
-// PART C: READING THE BROWSER'S REQUEST
-// =====================================================
 
 // Turn %20 into a space, + into a space, and so on
 string urlDecode(const string& text) {
