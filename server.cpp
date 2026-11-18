@@ -1,18 +1,4 @@
-// =====================================================
-// RESOURCE NETWORK ENGINE - server.cpp
-// A tiny web server written in C++.
-//
-// How it works:
-//   1. You run this program. It waits for the browser.
-//   2. The browser opens http://localhost:8080 and gets page.html.
-//   3. When you click Analyze, the page sends your answers to /analyze.
-//   4. This C++ code scores the ventures and sends the results back.
-//
-// Compile (Mac / Linux):  g++ -std=c++11 -o server server.cpp
-// Compile (Windows):      g++ -std=c++11 -o server.exe server.cpp -lws2_32
-// Run:                    ./server        (Windows: server.exe)
-// Then open:              http://localhost:8080
-// =====================================================
+
 
 #include <iostream>
 #include <fstream>
